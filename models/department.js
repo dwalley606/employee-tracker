@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-// Create a new Sequelize model for books
+// Create a new Sequelize model for Department
 class Department extends Model {}
 
 Department.init(
