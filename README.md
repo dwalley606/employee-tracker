@@ -41,4 +41,4 @@ You can also send me an email at dwalley606@gmail.com.
 
 ## Video Demo
 
-[!Video](https://drive.google.com/file/d/1mQcbFm-Tf9YR-KiBHYNJu7kUuLcHEn5w/view)
+[Video](https://drive.google.com/file/d/1mQcbFm-Tf9YR-KiBHYNJu7kUuLcHEn5w/view)
