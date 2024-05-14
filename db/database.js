@@ -1,35 +1,65 @@
-const addEmployee = (employee) => {
-    return db.query('INSERT INTO employees (first_name, last_name, role, manager) VALUES ($1, $2, $3, $4) RETURNING *', [employee.first_name, employee.last_name, employee.role, employee.manager]);
+const Table = require('cli-table');
+const sequelize = require('../config/connection'); // Import your existing Sequelize connection
+ 
+
+const addEmployee = async (employee) => {
+  return await sequelize.models.Employee.create({
+    first_name: employee.first_name,
+    last_name: employee.last_name,
+    role: employee.role,
+    manager: employee.manager
+  });
 }
 
-const addDepartment = (department) => {
-    return db.query('INSERT INTO departments (name) VALUES ($1) RETURNING *', [department.name]);
+const addDepartment = async (department) => {
+  return await sequelize.models.Department.create({
+    name: department.name
+  });
 }
 
-
-const addRole = (role) => {
-    return db.query('INSERT INTO roles (title, salary, department) VALUES ($1, $2, $3) RETURNING *', [role.title, role.salary, role.department]);
+const addRole = async (role) => {
+  return await sequelize.models.Role.create({
+    title: role.title,
+    salary: role.salary,
+    department: role.department
+  });
 }
 
-const getAllEmployees = () => {
-    return db.query('SELECT * FROM employees');
+const getAllEmployees = async () => {
+  const employees = await Employee.findAll();
+  return employees;
 }
 
-const getAllRoles = () => {
-    return db.query('SELECT * FROM role');
+const getAllRoles = async () => {
+  const roles = await sequelize.models.Role.findAll();
+  displayTable(roles);
 }
 
-const getAllDepartments = () => {
-    return db.query('SELECT * FROM department');
+const getAllDepartments = async () => {
+  const departments = await sequelize.models.Department.findAll();
+  displayTable(departments);
+}
+
+const displayTable = (data) => {
+  const table = new Table();
+  if (data.length > 0) {
+    table.push(Object.keys(data[0].dataValues));
+    data.forEach(row => {
+      table.push(Object.values(row.dataValues));
+    });
+    console.log(table.toString());
+  } else {
+    console.log('No data to display');
+  }
 }
 
 module.exports = {
-    addEmployee,
-    addDepartment,
-    addRole,
-    getAllEmployees,
-    getAllRoles,
-    getAllDepartments
+  addEmployee,
+  addDepartment,
+  addRole,
+  getAllEmployees,
+  getAllRoles,
+  getAllDepartments
 }
 
 

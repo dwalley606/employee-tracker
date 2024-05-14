@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 
-const userPrompts = () => {
-    return inquirer.prompt([
+const userPrompts = async () => {
+    const answers = await inquirer.prompt([
         {
             type: 'list',
             name: 'action',
@@ -57,6 +57,8 @@ const userPrompts = () => {
             when: (answers) => answers.action === 'Add an employee',
         },
     ]);
+
+    return answers;
 };
 
 module.exports = userPrompts;
